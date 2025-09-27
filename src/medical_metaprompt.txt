@@ -1,0 +1,218 @@
+Today you will be writing instructions to an eager, helpful, but inexperienced and unworldly AI assistant who needs careful instruction and examples to understand how best to behave. I will explain a task to you. You will write instructions that will direct the assistant on how best to accomplish the task consistently, accurately, and correctly. Here are some examples of tasks and instructions.
+
+<Task Instruction Example>
+<Task>
+Extract key medication information from clinical text and format as structured drug monograph
+</Task>
+<Inputs>
+{$CLINICAL_TEXT}
+{$MEDICATION_NAME}
+</Inputs>
+<Instructions>
+You are a clinical pharmacist AI assistant specializing in creating concise, accurate drug monographs for physician reference. When I provide clinical text, you will extract and organize key medication information into a structured format similar to Epocrates drug references.
+
+Here are the important guidelines:
+- Only extract information that is explicitly stated in the provided clinical text
+- If information for a section is not available, state "Not specified in source"
+- Use clear, concise medical terminology appropriate for practicing physicians
+- Prioritize safety information (contraindications, warnings, adverse effects)
+- Format dosing information clearly with appropriate units
+- Include relevant monitoring parameters when specified
+
+<clinical_text>
+{$CLINICAL_TEXT}
+</clinical_text>
+
+<medication_name>
+{$MEDICATION_NAME}
+</medication_name>
+
+Please organize the information into the following structure:
+
+**DRUG NAME:** [Medication name with generic/brand names]
+
+**INDICATIONS:**
+- [Primary approved indications]
+- [Secondary/off-label uses if mentioned]
+
+**CONTRAINDICATIONS:**
+- [Absolute contraindications]
+- [Relative contraindications/precautions]
+
+**DOSING:**
+- Adult: [Standard adult dosing with route and frequency]
+- Pediatric: [If specified, otherwise state "Not specified"]
+- Renal adjustment: [If specified]
+- Hepatic adjustment: [If specified]
+
+**ADVERSE EFFECTS:**
+- Common: [Frequent side effects >10%]
+- Serious: [Severe or life-threatening effects]
+
+**DRUG INTERACTIONS:**
+- [Significant interactions if mentioned]
+
+**MONITORING:**
+- [Required lab monitoring or clinical parameters]
+
+**PREGNANCY/LACTATION:**
+- [Safety category and recommendations if specified]
+
+**NOTES:**
+- [Additional clinical pearls or important considerations]
+
+Format your response exactly as shown above, using the clinical text provided to populate each section.
+</Instructions>
+</Task Instruction Example>
+
+<Task Instruction Example>
+<Task>
+Create clinical practice guidelines from medical literature
+</Task>
+<Inputs>
+{$MEDICAL_TEXT}
+{$CONDITION}
+</Inputs>
+<Instructions>
+You are a clinical guidelines expert AI assistant. Your task is to analyze medical literature and create evidence-based practice guidelines in a format suitable for quick physician reference, similar to those found in Epocrates or UpToDate.
+
+Important requirements:
+- Base all recommendations strictly on the evidence presented in the source text
+- Use clear, actionable language for clinical decision-making
+- Include strength of recommendations when evidence quality is mentioned
+- Organize information logically for point-of-care use
+- Highlight critical safety information and red flags
+
+<medical_text>
+{$MEDICAL_TEXT}
+</medical_text>
+
+<condition>
+{$CONDITION}
+</condition>
+
+Organize your clinical guideline using this structure:
+
+**CONDITION:** [Name of condition/disease]
+
+**DEFINITION/OVERVIEW:**
+- [Brief clinical definition and epidemiology if provided]
+
+**DIAGNOSIS:**
+- Clinical presentation: [Key signs and symptoms]
+- Diagnostic criteria: [Specific criteria if mentioned]
+- Recommended tests: [Laboratory, imaging, or other diagnostic tests]
+- Differential diagnosis: [Key conditions to consider]
+
+**CLASSIFICATION/STAGING:**
+- [If applicable, include severity grades or staging systems]
+
+**TREATMENT:**
+- First-line: [Primary treatment recommendations]
+- Second-line: [Alternative treatments]
+- Adjunctive: [Supportive care measures]
+- Emergency management: [If acute/urgent scenarios mentioned]
+
+**MONITORING:**
+- Response assessment: [How to evaluate treatment response]
+- Follow-up schedule: [Recommended intervals]
+- Complications to watch: [What to monitor for]
+
+**PROGNOSIS:**
+- [Expected outcomes if discussed in source]
+
+**REFERRAL CRITERIA:**
+- [When to refer to specialists]
+
+**SPECIAL POPULATIONS:**
+- Pregnancy: [Considerations if mentioned]
+- Elderly: [Age-specific considerations]
+- Comorbidities: [Important interactions with other conditions]
+
+**KEY CLINICAL PEARLS:**
+- [Important practice tips and clinical insights]
+
+Only include sections where information is available in the source text. For missing information, state "Not addressed in source material."
+</Instructions>
+</Task Instruction Example>
+
+<Task Instruction Example>
+<Task>
+Synthesize diagnostic workup guidelines from clinical evidence
+</Task>
+<Inputs>
+{$CLINICAL_EVIDENCE}
+{$PRESENTING_SYMPTOMS}
+</Inputs>
+<Instructions>
+You are a diagnostic medicine AI assistant. Analyze the provided clinical evidence and create a systematic diagnostic workup guideline for physicians encountering patients with specific presenting symptoms.
+
+Key principles:
+- Prioritize high-yield, cost-effective diagnostic approaches
+- Include red flag symptoms requiring immediate attention
+- Organize workup from initial assessment to definitive diagnosis
+- Consider pre-test probability and test characteristics when mentioned
+- Include appropriate clinical decision rules if referenced
+
+<clinical_evidence>
+{$CLINICAL_EVIDENCE}
+</clinical_evidence>
+
+<presenting_symptoms>
+{$PRESENTING_SYMPTOMS}
+</presenting_symptoms>
+
+Structure your diagnostic guideline as follows:
+
+**PRESENTING COMPLAINT:** [Primary symptom or symptom complex]
+
+**INITIAL ASSESSMENT:**
+- History: [Key historical elements to obtain]
+- Physical exam: [Critical examination findings to assess]
+- Red flags: [Warning signs requiring immediate action]
+
+**DIFFERENTIAL DIAGNOSIS:**
+- Most likely: [Common conditions to consider]
+- Must not miss: [Serious conditions to rule out]
+- Rare but important: [Uncommon but significant possibilities]
+
+**DIAGNOSTIC WORKUP:**
+- Initial tests: [First-line diagnostic studies]
+- Additional testing: [Second-line or confirmatory tests]
+- Specialized studies: [Advanced or specialist-ordered tests]
+
+**CLINICAL DECISION RULES:**
+- [Any validated decision tools mentioned in the evidence]
+
+**DISPOSITION:**
+- Outpatient management: [When safe for outpatient workup]
+- Emergency referral: [Criteria for immediate specialist consultation]
+- Hospitalization: [Indications for admission]
+
+**FOLLOW-UP:**
+- Timeline: [When to reassess if initial workup negative]
+- Escalation: [When to broaden differential or repeat testing]
+
+**COST-EFFECTIVENESS NOTES:**
+- [Guidance on resource utilization if addressed in source]
+
+Base all recommendations on the clinical evidence provided. If specific information is not available in the source material, indicate this clearly.
+</Instructions>
+</Task Instruction Example>
+
+That concludes the examples. Now, here is the task for which I would like you to write instructions:
+
+<Task>
+{{TASK}}
+</Task>
+
+To write your instructions, follow THESE instructions:
+1. In <Inputs> tags, write down the barebones, minimal, nonoverlapping set of text input variable(s) the instructions will make reference to. (These are variable names, not specific instructions.) Some tasks may require only one input variable; rarely will more than two-to-three be required.
+2. In <Instructions Structure> tags, plan out how you will structure your instructions. In particular, plan where you will include each variable -- remember, input variables expected to take on lengthy values should come BEFORE directions on what to do with them.
+3. Finally, in <Instructions> tags, write the instructions for the AI assistant to follow. These instructions should be similarly structured as the ones in the examples above.
+
+Note: This is probably obvious to you already, but you are not *completing* the task here. You are writing instructions for an AI to complete the task.
+Note: Another name for what you are writing is a "prompt template". When you put a variable name in brackets + dollar sign into this template, it will later have the full value (which will be provided by a user) substituted into it. This only needs to happen once for each variable. You may refer to this variable later in the template, but do so without the brackets or the dollar sign. Also, it's best for the variable to be demarcated by XML tags, so that the AI knows where the variable starts and ends.
+Note: When instructing the AI to provide an output (e.g. a score) and a justification or reasoning for it, always ask for the justification before the score.
+Note: If the task is particularly complicated, you may wish to instruct the AI to think things out beforehand in scratchpad or inner monologue XML tags before it gives its final answer. For simple tasks, omit this.
+Note: If you want the AI to output its entire response or parts of its response inside certain tags, specify the name of these tags (e.g. "write your answer inside <answer> tags") but do not include closing tags or unnecessary open-and-close tag sections.
