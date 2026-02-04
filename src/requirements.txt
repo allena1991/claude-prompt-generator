@@ -5,3 +5,4 @@ openai==1.14.3
 python-dotenv==1.0.1
 ruff==0.3.4
 scikit-learn==1.5.2
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
